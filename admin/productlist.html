@@ -19,7 +19,6 @@
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg bg-white fixed-top">
                 <a class="navbar-brand" href="admindash.html">PcMart</a>
-                <a href="../index.html" id="logout">Logout</a>
             </nav>
         </div>
         <!-- left sidebar -->
@@ -172,8 +171,8 @@
                                             <td>${product.productColor}</td>
                                             <td>${product.productPrice}</td>
                                             <td>${product.productWeight}</td>
-                                            <td> <a href="/admin/updateproducts.html?id=${product._id}" class="text-primary editProduct" >edit</a> 
-                                                <a href="#" class="text-danger deleteProduct" data-product='${product._id}'>delete</a>
+                                            <td> <a href="/admin/updateproducts.html?id=${product._id}" class="text-primary editProduct" >Edit</a> 
+                                                <a href="#" class="text-danger deleteProduct" data-product='${product._id}'>Delete</a>
                                                 </td>
                                         </tr>
                                         `;

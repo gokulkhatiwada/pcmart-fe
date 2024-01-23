@@ -28,41 +28,41 @@
     <div class="nav-left-sidebar sidebar-dark">
       <div class="menu-list">
 
-          <nav class="navbar navbar-expand-lg navbar-light">
-              <a class="d-xl-none d-lg-none" href="#">Dashdboard</a>
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <a class="d-xl-none d-lg-none" href="#">Dashdboard</a>
 
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                  aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarNav">
-                  <ul class="navbar-nav flex-column">
-                      <li class="nav-divider">
-                          Menu
-                      </li>
-                      <li class="nav-item ">
-                          <a class="nav-link" href="/admin/admindash.html">Dashboard
-                              </a>
-                      </li>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav flex-column">
+              <li class="nav-divider">
+                Menu
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link" href="/admin/admindash.html">Dashboard
+                </a>
+              </li>
 
-                      <li class="nav-item">
-                          <a class="nav-link" href="/admin/productlist.html">Products</a>
-                      </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/productlist.html">Products</a>
+              </li>
 
-                      <li class="nav-item">
-                          <a class="nav-link" href="displayuser.html">Current
-                              Users</a>
-                      </li>
+              <li class="nav-item">
+                <a class="nav-link" href="displayuser.html">Current
+                  Users</a>
+              </li>
 
-                      <li class="nav-item">
-                          <a class="nav-link" id="logout" href="#">Logout
-                              </a>
-                      </li>
-                  </ul>
-              </div>
-          </nav>
+              <li class="nav-item">
+                <a class="nav-link" id="logout" href="#">Logout
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
       </div>
-  </div>
+    </div>
   </div>
   <!-- end left sidebar -->
   <!-- wrapper  -->
@@ -196,7 +196,7 @@
                 <label class="col-md-4 control-label" for="percentage_discount">PERCENTAGE DISCOUNT</label>
                 <div class="col-md-4">
                   <input id="percentage_discount" name="productDiscount" placeholder="PERCENTAGE DISCOUNT"
-                    class="form-control input-md" type="text">
+                    class="form-control input-md" type="number">
 
                 </div>
               </div>
@@ -205,7 +205,7 @@
               <div class="form-group">
                 <label class="col-md-4 control-label" for="auxImage"> Images</label>
                 <div class="col-md-4">
-                  <input id="auxImage" name="auxiliaryImage" class="input-file" type="file">
+                  <input id="auxImage" name="auxiliaryImage" class="input-file" type="file" onchange="fileChange(e)">
                 </div>
               </div>
 
@@ -234,19 +234,27 @@
     if (!App.checkAdmin()) {
       location.href = "../index.html"
     }
+    let productImage = "";
+
 
     $("#addproductButton").on("click", function (e) {
       e.preventDefault();
-      document.querySelectorAll('input').forEach(element=>{
+      document.querySelectorAll('input').forEach(element => {
         element.style.backgroundColor = "white";
       })
       let form = $("#productForm").serializeArray();
       let productPayload = new FormData();
       form.forEach(item => {
-        productPayload[`${item.name}`] = item.value;
+        productPayload.append(`${item.name}`, item.value) ;
       })
-      let file = $("#auxImage").val();
-      productPayload.image = file;
+      let fileInput = $("#auxImage")[0];
+      if (fileInput.files.length) {
+        let file = fileInput.files[0];
+        console.log(file,"image file");
+        productPayload.append("image", file);
+      }
+
+
 
       App.addProduct(productPayload).then(res => {
         document.getElementById("message").innerText = res.message;

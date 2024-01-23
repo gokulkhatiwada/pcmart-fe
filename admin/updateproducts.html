@@ -56,7 +56,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="logout" href="#">Logout
-                                    </a>
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -211,6 +211,8 @@
                                 <label class="col-md-4 control-label" for="auxImage"> Images</label>
                                 <div class="col-md-4">
                                     <input id="auxImage" name="auxiliaryImage" class="input-file" type="file">
+                                    <br>
+                                    <span>If a new image is not uploaded, the existing image will be retained unchanged.</span>
                                 </div>
                             </div>
 
@@ -248,7 +250,7 @@
             window.location.href = "/admin/productlist.html"
 
         let product = App.getProduct(productId, false).then(res => {
-            
+
             for (const [key, value] of Object.entries(res.data)) {
                 let elem = document.querySelector('[name="' + key + '"]');
                 if (elem)
@@ -263,15 +265,21 @@
             document.querySelectorAll('input').forEach(element => {
                 element.style.backgroundColor = "white";
             })
+
+
             let form = $("#productForm").serializeArray();
             let productPayload = new FormData();
             form.forEach(item => {
-                productPayload[`${item.name}`] = item.value;
+                productPayload.append(`${item.name}`, item.value);
             })
-            let file = $("#auxImage").val();
-            productPayload.image = file;
+            let fileInput = $("#auxImage")[0];
+            if (fileInput.files.length) {
+                let file = fileInput.files[0];
+                console.log(file, "image file");
+                productPayload.append("image", file);
+            }
 
-            App.updateProduct(productPayload,productId).then(res => {
+            App.updateProduct(productPayload, productId).then(res => {
                 document.getElementById("message").innerText = res.message;
                 document.getElementById("message").scrollIntoView();
                 if (res.status == 200) {

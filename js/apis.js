@@ -166,11 +166,11 @@ export class ApiService {
             let token = StorageService.getAuthToken();
             const res = await fetch(ADD_PRODUCT, {
                 headers: {
-                    "Content-Type": "application/json",
+                    // "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
                 },
                 method: "POST",
-                body: JSON.stringify(data)
+                body: data
 
             });
 
@@ -190,11 +190,11 @@ export class ApiService {
             let token = StorageService.getAuthToken();
             const res = await fetch(UPDATE_PRODUCT + "/"+id, {
                 headers: {
-                    "Content-Type": "application/json",
+                    // "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
                 },
                 method: "PUT",
-                body: JSON.stringify(payload)
+                body: payload
 
             });
 
