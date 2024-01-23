@@ -209,8 +209,8 @@
 
 		let setupCartItems = () => {
 			document.getElementById("cartTotalItems").innerText = App.cart.totalItems;
-			document.getElementById("productprice1").innerText = App.cart.totalCost;
-			document.getElementById("productprice2").innerText = App.cart.totalCost;
+			document.getElementById("productprice1").innerText = `$${App.cart.totalCost}`;
+			document.getElementById("productprice2").innerText = `$${App.cart.totalCost}`;
 			if (App.cart.totalItems < 1) {
 				window.location.href = "/cart.html";
 			}
@@ -222,7 +222,7 @@
 
 			$(document).on("cartUpdated", function (e) {
 				document.getElementById("cartTotalItems").innerText = App.cart.totalItems;
-				document.getElementById("productTotal").innerText = App.cart.totalCost;
+				document.getElementById("productTotal").innerText = `$${App.cart.totalCost}`;
 				setupCartItems();
 			})
 

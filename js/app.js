@@ -103,11 +103,10 @@ export class App {
                 <img src=" ${product.imageUri} " alt=""></a>
                 <div class="pi-links">
                 <a href="" class="addToCart" data-product='${JSON.stringify(product)}' class="add-card"><i class="flaticon-bag"></i><span></span></a>
-                <a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
                 </div>
                 </div>
                 <div class="pi-text">
-                <h6>$ ${product.productPrice}</h6>
+                <h6>$${product.productPrice}</h6>
                 <p>${product.productName}</p>
                 </div>
                 </div></div>`;

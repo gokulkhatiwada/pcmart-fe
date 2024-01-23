@@ -183,6 +183,22 @@
 				document.getElementById("cartTotalItems").innerText = App.cart.totalItems;
 			})
 
+			$(document).on("click", ".addToCart", function (e) {
+				e.preventDefault();
+				e.stopPropagation();
+				let item = null;
+				if (e.target.hasAttribute("data-product")) {
+
+					item = e.target.getAttribute("data-product");
+				} else {
+
+					item = e.target.parentElement.getAttribute("data-product");
+
+				}
+
+				App.addToCart(JSON.parse(item), 1);
+			})
+
 		})
 	</script>
 

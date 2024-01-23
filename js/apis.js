@@ -69,7 +69,6 @@ export class ApiService {
 
     static listProducts = async data => {
         try {
-            console.log(data);
             const res = await fetch(PRODUCT_LIST + '?' + new URLSearchParams(data), {
                 data: data
             });
